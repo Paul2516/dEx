@@ -31,14 +31,13 @@ public class AddForm extends JFrame {
      * @param title
      * @param windowTitle
      */
-    public AddForm(JTable Table, String title, String windowTitle) {
-
-        setMinimumSize(new Dimension(900, 600));
+    public AddForm() {
+        setTitle("Title");
         setIconImage(new ImageIcon(getClass().getResource("../res/service_logo.png")).getImage());
         setContentPane(AddPanel);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setTitle("ТИТУЛ");
+        setMinimumSize(new Dimension(900,600));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
     }
 }

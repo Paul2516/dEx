@@ -6,4 +6,5 @@ public class Application {
         mainForm.setVisible(true);
         mainForm.pack();
     }
+
 }

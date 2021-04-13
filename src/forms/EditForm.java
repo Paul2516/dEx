@@ -3,7 +3,6 @@ package forms;
 import utils.DBHandler;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,35 +28,33 @@ public class EditForm extends JFrame {
     private JLabel Gender;
     private JLabel Photo;
 
-    public EditForm(JTable mainTable, String Title, String WindowsTitle) {
+    public EditForm(JTable mainTable) {
 
         setTitle("Title");
-        setMinimumSize(new Dimension(900, 600));
-        setContentPane(EditPanel);
         setIconImage(new ImageIcon(getClass().getResource("../res/service_logo.png")).getImage());
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setContentPane(EditPanel);
         setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(900,600));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        DefaultTableModel editModel = new DefaultTableModel();
         DBHandler.openConnection();
         ResultSet resultSet = DBHandler.query("SELECT * from service WHERE Title='" + mainTable.getValueAt(mainTable.getSelectedRow(), 0) + "'");
         try {
-            while (resultSet.next()) {
-                editModel.addRow(new String[]{
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getString(7),
-                        resultSet.getString(8),
-                        resultSet.getString(9),
-                });
+            while (resultSet.next()){
+                SecondNameField.setText(resultSet.getString(2));
+                FirstNameField.setText(resultSet.getString(3));
+                PatronymicField.setText(resultSet.getString(4));
+                BirthdayField.setText(resultSet.getString(5));
+                RegDateField.setText(resultSet.getString(6));
+                EmailField.setText(resultSet.getString(7));
+                MobileField.setText(resultSet.getString(8));
+                GenderField.setText(resultSet.getString(9));
             }
-        } catch (SQLException throwables) {
+        }
+        catch (SQLException throwables){
             throwables.printStackTrace();
         }
         DBHandler.closeConnection();
-        mainTable.setModel(editModel);
+
     }
 }

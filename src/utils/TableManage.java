@@ -6,13 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TableManage {
-    public static void refreshTable(JTable table) {
-        DefaultTableModel manageModel = new DefaultTableModel();
+    public static void refreshTable(JTable table){
+        DefaultTableModel tableManageModel = new DefaultTableModel();
+        tableManageModel.setColumnIdentifiers(new String[]{
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+        });
+
         DBHandler.openConnection();
         ResultSet resultSet = DBHandler.query("SELECT * from service");
         try {
             while (resultSet.next()){
-                manageModel.addRow(new String[]{
+                tableManageModel.addRow(new String[]{
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
@@ -28,7 +39,6 @@ public class TableManage {
             throwables.printStackTrace();
         }
         DBHandler.closeConnection();
-        table.setModel(manageModel);
-
+        table.setModel(tableManageModel);
     }
 }
